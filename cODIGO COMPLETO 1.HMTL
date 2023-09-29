@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generador de Estadísticas y Ganador Diario</title>
+</head>
+<body>
+    <h1>Generador de Estadísticas y Ganador Diario</h1>
+
+    <!-- Botón para registrar una acción -->
+    <button id="registroBtn">Registrar Acción</button>
+
+    <!-- Formulario para ingresar un nombre -->
+    <label for="nombre">Nombre: </label>
+    <input type="text" id="nombre" placeholder="Ingrese su nombre">
+    <button id="guardarBtn">Guardar Información</button>
+
+    <!-- Estadísticas -->
+    <h2>Estadísticas:</h2>
+    <p>Total de acciones registradas: <span id="totalAcciones">0</span></p>
+    <p>Total de nombres guardados: <span id="totalNombres">0</span></p>
+
+    <!-- Ganador Diario -->
+    <h2>Ganador Diario:</h2>
+    <p>El ganador de hoy es: <span id="ganadorDiario">Ninguno</span></p>
+
+    <script>
+        // Contadores para estadísticas
+        let totalAcciones = 0;
+        let totalNombres = 0;
+
+        // Array para almacenar nombres
+        const nombres = [];
+
+        // Función para registrar una acción
+        document.getElementById("registroBtn").addEventListener("click", () => {
+            totalAcciones++;
+            document.getElementById("totalAcciones").textContent = totalAcciones;
+        });
+
+        // Función para guardar un nombre
+        document.getElementById("guardarBtn").addEventListener("click", () => {
+            const nombre = document.getElementById("nombre").value;
+            if (nombre.trim() !== "") {
+                nombres.push(nombre);
+                totalNombres++;
+                document.getElementById("totalNombres").textContent = totalNombres;
+                document.getElementById("nombre").value = ""; // Limpiar el campo
+            }
+        });
+
+        // Función para seleccionar un ganador diario aleatorio
+        function seleccionarGanadorDiario() {
+            if (nombres.length > 0) {
+                const ganadorIndex = Math.floor(Math.random() * nombres.length);
+                const ganador = nombres[ganadorIndex];
+                document.getElementById("ganadorDiario").textContent = ganador;
+            } else {
+                document.getElementById("ganadorDiario").textContent = "Ninguno";
+            }
+        }
+
+        // Llamar a la función de selección de ganador al cargar la página
+        seleccionarGanadorDiario();
+    </script>
+</body>
+</html>
